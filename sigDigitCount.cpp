@@ -23,7 +23,9 @@ int main(){
             if(m[i] == '.' && !decimal)
                 decimal = true;
 
-            /* counting zeros in between numbers and trailing zeros after decimal point */
+            /* counting zeros in between numbers and trailing zeros after decimal point.
+               afterNumber will be false if zero occurs after non zro, e.g 440
+            */
             if(countSig > 0 && currentValue == 0){
                 if(afterNumber){
                     afterNumber = false;
