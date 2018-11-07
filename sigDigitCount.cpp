@@ -25,7 +25,7 @@ int main(){
 
             /* counting zeros in between numbers and trailing zeros after decimal point.
                afterNumber will be false if zero occurs after non zro, e.g 440
-               if zro occurs as last like "440" then it will false and last zero will be eleminated.
+               if zro occurs as last like "440" then it will false and last zro wont be significant.
             */
             if(countSig > 0 && currentValue == 0){
                 if(afterNumber){
