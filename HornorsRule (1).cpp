@@ -46,22 +46,4 @@ int main()
         cout  << "p " << pSize << ": " << p[k] << endl;
         pSize--;
     }
-
-//    stringstream ss;
-//    string str;
-//    getline(cin, str);
-//    replace( str.begin(), str.end(), ',', ' ');
-//    ss << str;
-//
-//    vector<int> newC;
-//    int x = 0;
-//    while (ss >> x)
-//    {
-//        newC.push_back(x);
-////        cout << x << endl;
-//    }
-//
-//    for(int i = 0; i < newC.size(); i++){
-//        cout << newC.at(i);
-//    }
 }
