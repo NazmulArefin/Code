@@ -23,7 +23,7 @@ vector<int> strToInt(string s){
                 flagMinus = false;
             }
             else{
-                c.push_back(x-'0');
+                c.push_back(x-'0'); // char to int convertion
             }
 
         }
