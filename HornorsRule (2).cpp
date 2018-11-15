@@ -26,7 +26,6 @@ int main()
     ifstream ifile;
     ifile.open("file.txt");
     vector<int> co;
-    vector<int> p;
     int s, x;
     bool isFirst = true;
     while (ifile >> s)

@@ -23,9 +23,8 @@ vector<int> strToInt(string s){
                 flagMinus = false;
             }
             else{
-                c.push_back(x-'0'); // char to int convertion
+                c.push_back(x-'0'); // char to int conversion and push to c
             }
-
         }
     }
     return c;
@@ -42,31 +41,17 @@ void horner(vector<int> co, int x)
 //    return result;
 }
 
-int main(){
+void calculatePoly(vector<string> inputLines){
 
-    string line;
-    vector<string> inputLines;
+    vector<int> c;  // Coefficient set
+    vector<int> x;  // Value of x set
 
-    //getting multiple lines from user in console
-    while(std::getline(cin, line)){
-        if (line.empty()){
-            break;
-        }
-        inputLines.push_back(line);
-    }
-
-    vector<int> c;
-    vector<int> x;
-
-    /*Pair of lines are selected and first one take as Coefficient set
-      and second one take as value set of x.
-    */
-    if(inputLines.size()%2 == 0 && inputLines.size()>0){
+//    if(inputLines.size()%2 == 0 && inputLines.size()>0){ // Pair of lines are selected and first one take as Coefficient set and second one take as value set of x.
         for(int i = 0;  i < inputLines.size(); i++){
             if(i%2 == 0)
-                c = strToInt(inputLines.at(i)); // Coefficient set
+                c = strToInt(inputLines.at(i));
             else{
-                x = strToInt(inputLines.at(i)); // Value of x set
+                x = strToInt(inputLines.at(i));
                 for(int i = 0; i<x.size(); i++){
 //                        cout << "x: " << x.at(i) << endl; // << ": " << typeid(c.at(i)).name() << endl;
                         horner(c,x.at(i));
@@ -74,7 +59,24 @@ int main(){
                     cout << endl;
                 }
             } // end of test cases
-        }
+//        }
+}
 
+int main(){
+
+    string line;
+    vector<string> inputLines;
+
+    //getting multiple lines from user in console
+    while(std::getline(cin, line)){
+//        if (line.empty()){
+//            break;
+//        }
+        inputLines.push_back(line);
+        if(inputLines.size() %2 == 0){
+            calculatePoly(inputLines);
+            inputLines.clear();
+        }
+    }
     return 0;
 }
