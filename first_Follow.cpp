@@ -17,115 +17,133 @@ typedef long long ll;
 typedef string str;
 
 
+bool isEpsilon(str s)
+{
+    loop(i,s.size())
+    {
+        if(s[i] == '~')
+            return true;
+    }
+    return false;
+}
 
-//vector<str>
 str first(int i, vector<str> v, str s,vector<str> FV)
 {
-//    loop(i,t)
-//    {
-//        dbg(v1[i]);
-//        str s = v1[i];
-        if(s[0] <= 'Z' and s[0] >= 'A')
+
+    if(s[0] <= 'Z' and s[0] >= 'A')
+    {
+        str ss = "";
+        ss += s[0];
+        if(s[1] == '\'')
+            ss += '\'';
+        auto it = find(v.begin(), v.end(), ss);
+        if (it != v.end())
         {
-            str ss = "";
-            ss += s[0];
-//            dbg(s[0]);
-//            dbg(ss);
-            if(s[1] == '\'')
-                ss += '\'';
-//            dbg(ss);
-            auto it = find(v.begin(), v.end(), ss);
-            if (it != v.end())
+            int pos = it - v.begin();
+            if(FV.at(pos) != "")
             {
-                int pos = it - v.begin();
-                if(FV.at(pos) != ""){
-                    FV[i] += FV[pos];
+                FV[i] += FV[pos];
+                if(isEpsilon(FV[pos]))
+                {
+                    str sub = "";
+                    for(int k = 1; k < s.size(); k++)
+                    {
+                        if(s[k] == '|')
+                            break;
+                        else
+                            sub += s[k];
+                    }
+                    FV[i] = first(i,v,sub,FV);
                 }
-//                dbg(FV[i]);
-//                dbg(pos);
             }
         }
-        else
-        {
-//            dbg(s[0]);
-            FV[i] += s[0];
-//            dbg(FV[i]);
-        }
+    }
+    else
+        FV[i] += s[0];
 
-        str sub = "";
-        for(int j = i; j < s.size(); j++)
+    str sub = "";
+    for(int j = i; j < s.size(); j++)
+    {
+        if(s[j] == '|')
         {
-            if(s[j] == '|')
-            {
-                sub = s.substr(j+1);
-//                dbg(sub);
-                break;
-            }
+            sub = s.substr(j+1);
+            break;
         }
-        if(sub != "")
-            FV[i] = first(i,v,sub,FV);
+    }
+    if(sub != "")
+        FV[i] = first(i,v,sub,FV);
 
-//    }
-//    loop(i,FV.size())
-//    {
-//        cout << i << ":" << FV.at(i) << endl;
-//    }
-//    dbg(FV[i]);
     return FV[i];
+}
+
+string removeSpace(str s)
+{
+    str s1;
+    loop(i,s.size())
+    {
+        if(!isspace(s[i]))
+            s1 += s[i];
+    }
+    return s1;
 }
 
 int main()
 {
     fin;
     int t;
-    cin >> t;
-
-    vector<str> v(t);
-    vector<str> v1(t);
-    vector<str> FV(t);
-    loop(i,t)
+    while(cin >> t)
     {
-        str s;
-        cin >> s;
-        loop(j,s.size())
+
+        vector<str> v(t);
+        vector<str> v1(t);
+        vector<str> FV(t);
+        loop(i,t)
         {
-            if(j < 2 and s[j] != '-')
+            str s;
+            cin >> s;
+            loop(j,s.size())
             {
-                v[i] += s[j];
-            }
-            else if(s[j] == '-' or s[j] == '>')
-            {
-                continue;
-            }
-            else
-            {
-                v1[i] += s[j];
+                if(j < 2 and s[j] != '-')
+                    v[i] += s[j];
+                else if(s[j] == '-' or s[j] == '>')
+                    continue;
+                else
+                    v1[i] += s[j];
             }
         }
-    }
-    reverse(v.begin(),v.end());
-    reverse(v1.begin(),v1.end());
-    loop(i,t)
-    {
-        FV[i] = first(i,v,v1[i],FV);
-    }
-    loop(i,FV.size())
-    {
-        cout << i << ":" << FV.at(i) << endl;
-    }
+        reverse(v.begin(),v.end());
+        reverse(v1.begin(),v1.end());
+        loop(i,t)
+        {
+            FV[i] = first(i,v,v1[i],FV);
+        }
+        vector<set<char>> v2;
+        loop(i,FV.size())
+        {
+            set<char> st;
+            str st1 = FV[i];
 
-//    loop(i,t)
-//        cout << v[i] << " ";
-//    cout << endl;
-//    loop(i,t)
-//        cout << v1[i] << " ";
+            loop(j,st1.size())
+            {
+                if(st1[j] != ' ')
+                    st.insert(st1[j]);
+            }
 
-
+            v2.push_back(st);
+        }
+        reverse(v2.begin(), v2.end());
+        int c = 0;
+        loop(i,v2.size())
+        {
+            c++;
+            cout << c << ". {";
+            bool l = 0;
+            loopi(j,v2.at(i))
+                cout << *j;
+            cout << "}" << endl;
+        }
+        cout  << endl;
+    }
 
     return 0;
 }
-
-
-
-
-
